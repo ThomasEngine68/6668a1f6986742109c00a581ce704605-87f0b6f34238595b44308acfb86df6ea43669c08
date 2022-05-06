@@ -48,9 +48,9 @@ function createNDimArray(dimensions, chance) {
         var stats = isPassable(dimensions, maze);
         passed = stats.passed && stats.chain.length > minDistance;
         areasTested += stats.areasTested;
-        console.log(areasTested);
-        console.log(tries);
     }
+    console.log(areasTested);
+    console.log(tries);
     return maze;
  }
 
@@ -87,8 +87,6 @@ function createNDimArray(dimensions, chance) {
                 chain.push(legalMove);
                 if(legalMove.area.goal) 
                 {
-                    console.log("Is passable")
-                    console.log(chain);
                     stats.chain = chain;
                     stats.passed = true;
                     return stats;
@@ -148,3 +146,26 @@ function createNDimArray(dimensions, chance) {
         return true;
     }
  }
+
+ function getAreasOfDimension(maze, coordinates, dimension){
+    var arrayInUse = maze;
+    coordinates.forEach((coordinate, index) => {
+        if(index == dimension){
+            arrayInUse = arrayInUse;
+        }else if(index < dimension){
+            arrayInUse = arrayInUse[coordinate];
+        }else {
+            arrayInUse = arrayInUse.map(innerArray => innerArray[coordinate]);
+        }
+    });
+    return arrayInUse;
+ }
+
+function getAreaOfCoordinates(maze, coordinates){
+    console.log(coordinates);
+    var area = maze;
+    for(coordinate of coordinates){
+        area = area[coordinate];
+    }
+    return area;
+}
