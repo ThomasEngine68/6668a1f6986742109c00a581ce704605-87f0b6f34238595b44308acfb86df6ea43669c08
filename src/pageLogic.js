@@ -79,6 +79,7 @@ class PageContainer extends React.Component {
 	render() {
 		return (
 			<div>
+				<h1 style={{textAlign: "center"}}>Welcome to the Maze Game!</h1>
 				<MazeGameContainer
 					handleClickUp={this.handleClickUp}
 					handleClickDown={this.handleClickDown}

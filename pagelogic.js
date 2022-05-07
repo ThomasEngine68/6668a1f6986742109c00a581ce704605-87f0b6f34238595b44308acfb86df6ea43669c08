@@ -36,7 +36,7 @@ var PageContainer = function (_React$Component) {
 	}
 
 	_createClass(PageContainer, [{
-		key: 'createNewMaze',
+		key: "createNewMaze",
 		value: function createNewMaze(mazeSize, forceBackTrack, wallChance) {
 			console.log(mazeSize);
 			var playerCoordinates = [];
@@ -62,7 +62,7 @@ var PageContainer = function (_React$Component) {
 			}
 		}
 	}, {
-		key: 'handleMove',
+		key: "handleMove",
 		value: function handleMove(dimension, up) {
 			var mazeSize = this.state.mazeSize.slice();
 			var maze = this.state.maze.slice();
@@ -84,21 +84,26 @@ var PageContainer = function (_React$Component) {
 			});
 		}
 	}, {
-		key: 'handleClickUp',
+		key: "handleClickUp",
 		value: function handleClickUp(dimension) {
 			this.handleMove(dimension, true);
 		}
 	}, {
-		key: 'handleClickDown',
+		key: "handleClickDown",
 		value: function handleClickDown(dimension) {
 			this.handleMove(dimension, false);
 		}
 	}, {
-		key: 'render',
+		key: "render",
 		value: function render() {
 			return React.createElement(
-				'div',
+				"div",
 				null,
+				React.createElement(
+					"h1",
+					{ style: { textAlign: "center" } },
+					"Welcome to the Maze Game!"
+				),
 				React.createElement(MazeGameContainer, {
 					handleClickUp: this.handleClickUp,
 					handleClickDown: this.handleClickDown,

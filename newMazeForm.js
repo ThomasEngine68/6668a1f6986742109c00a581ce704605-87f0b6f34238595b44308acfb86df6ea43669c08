@@ -19,10 +19,10 @@ var NewMazeForm = function (_React$Component) {
 		var _this = _possibleConstructorReturn(this, (NewMazeForm.__proto__ || Object.getPrototypeOf(NewMazeForm)).call(this, props));
 
 		_this.state = {
-			dimensionCount: 4,
-			mazeSize: [3, 3, 3, 3],
-			forceBackTrack: true,
-			wallChance: 0.6
+			dimensionCount: 1,
+			mazeSize: [5],
+			forceBackTrack: false,
+			wallChance: 0.0
 		};
 
 		_this.handleDimensionCountChange = _this.handleDimensionCountChange.bind(_this);
@@ -115,7 +115,7 @@ var NewMazeForm = function (_React$Component) {
 				dimensionCount: 2,
 				mazeSize: [6, 6],
 				forceBackTrack: true,
-				wallChance: 0.5
+				wallChance: 0.55
 			}, function () {
 				_this3.handleSubmit();
 			});
@@ -173,33 +173,33 @@ var NewMazeForm = function (_React$Component) {
 			});
 			return React.createElement(
 				"div",
-				{ style: { border: "solid black 1px" } },
+				{ className: "whitePanel" },
 				React.createElement(
 					"div",
 					{ style: { display: "flex" } },
 					React.createElement(
 						"button",
-						{ onClick: this.generateLevel1 },
+						{ className: "button", onClick: this.generateLevel1 },
 						"Level 1"
 					),
 					React.createElement(
 						"button",
-						{ onClick: this.generateLevel2 },
+						{ className: "button", onClick: this.generateLevel2 },
 						"Level 2"
 					),
 					React.createElement(
 						"button",
-						{ onClick: this.generateLevel3 },
+						{ className: "button", onClick: this.generateLevel3 },
 						"Level 3"
 					),
 					React.createElement(
 						"button",
-						{ onClick: this.generateLevel4 },
+						{ className: "button", onClick: this.generateLevel4 },
 						"Level 4"
 					),
 					React.createElement(
 						"button",
-						{ onClick: this.generateLevel5 },
+						{ className: "button", onClick: this.generateLevel5 },
 						"Level 5"
 					)
 				),
@@ -280,7 +280,11 @@ var NewMazeForm = function (_React$Component) {
 						"Total areas: ",
 						totalAreas
 					),
-					React.createElement("input", { type: "submit", value: "Create new maze!" })
+					React.createElement(
+						"button",
+						{ className: "button", type: "submit" },
+						"Create a new maze!"
+					)
 				)
 			);
 		}

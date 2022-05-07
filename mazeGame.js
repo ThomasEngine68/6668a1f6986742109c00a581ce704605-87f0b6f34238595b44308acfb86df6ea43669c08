@@ -14,44 +14,53 @@ function Control(props) {
 	return React.createElement(
 		"div",
 		{ style: {
-				border: "1px solid black",
-				margin: "10px"
+				width: "80px"
 			} },
 		React.createElement(
 			"p",
-			null,
+			{ style: { textAlign: "center" } },
 			"Dimension ",
 			props.dimensionIndex
 		),
 		React.createElement(
-			"button",
-			{ className: "moveButton", disabled: !props.moves.validUp, onClick: props.onClickUp },
-			"UP"
-		),
-		React.createElement(
-			"table",
-			null,
+			"div",
+			{ style: {
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "space-between",
+					alignItems: "center",
+					minHeight: "250px"
+				} },
 			React.createElement(
-				"tbody",
+				"button",
+				{ className: "button", disabled: !props.moves.validUp, onClick: props.onClickUp },
+				"UP"
+			),
+			React.createElement(
+				"table",
 				null,
-				[].concat(_toConsumableArray(props.areasOfDimension)).reverse().map(function (area, index) {
-					return React.createElement(
-						"tr",
-						{ key: index },
-						React.createElement("td", { className: "\n\t\t\t\t\t\t\t\t" + (area.open ? "openMazeTile" : "walledMazeTile") + "\n\t\t\t\t\t\t\t\t" + (area.player ? "hasPlayer" : "") + "\n\t\t\t\t\t\t\t\t" + (area.goal ? "hasGoal" : "") + "\n\t\t\t\t\t\t\t\t", style: {
-								border: "1px solid black",
-								padding: "0px",
-								height: "30px",
-								width: "30px"
-							} })
-					);
-				})
+				React.createElement(
+					"tbody",
+					null,
+					[].concat(_toConsumableArray(props.areasOfDimension)).reverse().map(function (area, index) {
+						return React.createElement(
+							"tr",
+							{ key: index },
+							React.createElement("td", { className: "\n\t\t\t\t\t\t\t\t" + (area.open ? "openMazeTile" : "walledMazeTile") + "\n\t\t\t\t\t\t\t\t" + (area.player ? "hasPlayer" : "") + "\n\t\t\t\t\t\t\t\t" + (area.goal ? "hasGoal" : "") + "\n\t\t\t\t\t\t\t\t", style: {
+									border: "1px solid black",
+									padding: "0px",
+									height: "30px",
+									width: "30px"
+								} })
+						);
+					})
+				)
+			),
+			React.createElement(
+				"button",
+				{ className: "button", disabled: !props.moves.validDown, onClick: props.onClickDown },
+				"DOWN"
 			)
-		),
-		React.createElement(
-			"button",
-			{ className: "moveButton", disabled: !props.moves.validDown, onClick: props.onClickDown },
-			"DOWN"
 		)
 	);
 }
@@ -72,32 +81,41 @@ var MazeGameContainer = function (_React$Component) {
 
 			return React.createElement(
 				"div",
-				null,
+				{ style: { display: "flex", justifyContent: "center" } },
 				React.createElement(
 					"div",
-					{ style: { display: "flex" } },
-					[].concat(_toConsumableArray(Array(this.props.mazeSize.length))).map(function (x, dimension) {
-						return React.createElement(
-							"div",
-							{ key: dimension },
-							React.createElement(Control, {
-								dimensionIndex: dimension,
-								areasOfDimension: getAreasOfDimension(_this2.props.maze, _this2.props.playerCoordinates, dimension),
-								moves: _this2.props.movesByDimension[dimension],
-								onClickUp: function onClickUp() {
-									return _this2.props.handleClickUp(dimension);
-								},
-								onClickDown: function onClickDown() {
-									return _this2.props.handleClickDown(dimension);
-								}
-							})
-						);
-					})
-				),
-				React.createElement(
-					"div",
-					null,
-					this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳🥕🥕🥕" : null
+					{ className: "whitePanel" },
+					React.createElement(
+						"div",
+						{ style: {
+								display: "flex",
+								justifyContent: "center",
+								flexWrap: "wrap",
+								minWidth: "350px"
+							} },
+						[].concat(_toConsumableArray(Array(this.props.mazeSize.length))).map(function (x, dimension) {
+							return React.createElement(
+								"div",
+								{ key: dimension },
+								React.createElement(Control, {
+									dimensionIndex: dimension,
+									areasOfDimension: getAreasOfDimension(_this2.props.maze, _this2.props.playerCoordinates, dimension),
+									moves: _this2.props.movesByDimension[dimension],
+									onClickUp: function onClickUp() {
+										return _this2.props.handleClickUp(dimension);
+									},
+									onClickDown: function onClickDown() {
+										return _this2.props.handleClickDown(dimension);
+									}
+								})
+							);
+						})
+					),
+					React.createElement(
+						"div",
+						null,
+						this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳🥕🥕🥕" : null
+					)
 				)
 			);
 		}
