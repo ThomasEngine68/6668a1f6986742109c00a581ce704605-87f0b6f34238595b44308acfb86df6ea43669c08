@@ -14,17 +14,27 @@ function createNDimArray(dimensions, chance) {
      }
  }
 
- function addStartEnd(maze){
+function getZeroArea(maze){
     var zero = maze;
     while(Array.isArray(zero)){
         zero = zero[0];
     }
-    zero.player = true;
-    zero.open = true;
+    return zero;
+}
+
+function getMaxArea(maze){
     var max = maze;
     while(Array.isArray(max)){
         max = max[max.length - 1];
     }
+    return max;
+}
+
+ function addStartEnd(maze){
+    var zero = getZeroArea(maze);
+    var max = getMaxArea(maze);
+    zero.player = true;
+    zero.open = true;
     max.goal = true;
     max.open = true;
  }
@@ -49,8 +59,8 @@ function createNDimArray(dimensions, chance) {
         passed = stats.passed && stats.chain.length > minDistance;
         areasTested += stats.areasTested;
     }
-    console.log(areasTested);
-    console.log(tries);
+    console.log("areasTested " + areasTested);
+    console.log("tries " + tries);
     return maze;
  }
 
@@ -162,10 +172,20 @@ function createNDimArray(dimensions, chance) {
  }
 
 function getAreaOfCoordinates(maze, coordinates){
-    console.log(coordinates);
     var area = maze;
     for(coordinate of coordinates){
         area = area[coordinate];
     }
     return area;
+}
+
+function getLegalMovesByDimension(playerCoordinates, maze){
+    var legalMoves = getLegalMoves(playerCoordinates, maze, []);
+    var movesByDimension = [...Array(mazeSize.length)].map((x, i) => {
+			var legalMovesOfDimension = legalMoves.filter(legalMove => legalMove.dimension == i);
+			var validUp = legalMovesOfDimension.some(legalMove => legalMove.move == "UP");
+			var validDown = legalMovesOfDimension.some(legalMove => legalMove.move == "DOWN");
+			return {validUp : validUp, validDown: validDown};
+    });
+		return movesByDimension;
 }

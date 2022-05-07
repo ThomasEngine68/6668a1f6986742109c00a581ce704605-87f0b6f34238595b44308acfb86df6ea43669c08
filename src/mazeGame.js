@@ -38,38 +38,43 @@ function Control(props) {
 class MazeGameContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { liked: false };
-    this.mazeSize = [3, 3, 3, 3];
-    this.maze = createPlayableMaze(this.mazeSize, 0.5, true)
-    this.playerCoordinates = [0, 0, 0, 0]
+    this.state = { 
+      mazeSize : [3, 3, 3, 3],
+      maze : createPlayableMaze(this.mazeSize, 0.5, true),
+      playerCoordinates : [0, 0, 0, 0],
+			movesByDimension : getLegalMovesByDimension(this.state.playerCoordinates, this.state.maze)
+    };
+  }
+
+  handleMove(index, up){
+    var mazeSize = this.state.mazeSize.slice();
+    var maze = this.state.maze.slice();
+    var playerCoordinates = this.playerCoordinates.slice();
+    var currentArea = getAreaOfCoordinates(maze, playerCoordinates);
+    currentArea.player = false;
+    if(up) playerCoordinates[index]++;
+    else playerCoordinates[index]--;
+    var newArea = getAreaOfCoordinates(maze, playerCoordinates);
+    newArea.player = true;
+
+		var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze)
+    this.setState({
+      mazeSize : mazeSize,
+      maze : maze,
+      playerCoordinates : playerCoordinates,
+			movesByDimension : movesByDimension
+    });
   }
 
   handleClickUp(index) {
-    var currentArea = getAreaOfCoordinates(this.maze, this.playerCoordinates);
-    currentArea.player = false;
-    this.playerCoordinates[index]++;
-    var newArea = getAreaOfCoordinates(this.maze, this.playerCoordinates);
-    newArea.player = true;
-    this.forceUpdate();
+    handleMove(index, true)
   }
 
   handleClickDown(index) {
-    var currentArea = getAreaOfCoordinates(this.maze, this.playerCoordinates);
-    currentArea.player = false;
-    this.playerCoordinates[index]--;
-    var newArea = getAreaOfCoordinates(this.maze, this.playerCoordinates);
-    newArea.player = true;
-    this.forceUpdate();
+    handleMove(index, false)
   }
 
   render() {
-    var legalMoves = getLegalMoves(this.playerCoordinates, this.maze, []);
-    var movesOfDimensions = [...Array(this.mazeSize.length)].map((x, i) => {
-      var legalMovesOfDimension = legalMoves.filter(legalMove => legalMove.dimension == i);
-      var validUp = legalMovesOfDimension.some(legalMove => legalMove.move == "UP");
-      var validDown = legalMovesOfDimension.some(legalMove => legalMove.move == "DOWN");
-      return {validUp : validUp, validDown: validDown};
-    });
     return (
       <div>
         <div style={{display: "flex"}}>
@@ -77,9 +82,8 @@ class MazeGameContainer extends React.Component {
           <div key={i}>
             <Control 
               dimensionIndex={i}
-              dimensionSize={this.mazeSize[i]}
               areasOfDimension={getAreasOfDimension(this.maze, this.playerCoordinates, i)}
-              moves={movesOfDimensions[i]}
+              moves={this.state.movesByDimension[i]}
               onClickUp={() => this.handleClickUp(i)}
               onClickDown={() => this.handleClickDown(i)}
             />
