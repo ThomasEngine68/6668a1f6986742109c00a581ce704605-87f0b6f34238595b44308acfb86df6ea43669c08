@@ -3,9 +3,9 @@
 class PageContainer extends React.Component {
 	constructor(props) {
 		super(props);
-		var mazeSize = [3, 3, 3, 3];
-		var maze = createPlayableMaze(mazeSize, 0.5, true);
-		var playerCoordinates = [0, 0, 0, 0]
+		var mazeSize = [5];
+		var maze = createPlayableMaze(mazeSize, 0.0, false);
+		var playerCoordinates = [0]
 		var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
 		this.state = {
 			mazeSize: mazeSize,
@@ -21,12 +21,13 @@ class PageContainer extends React.Component {
 		this.handleClickDown = this.handleClickDown.bind(this);
 	}
 
-	createNewMaze(mazeSize) {
+	createNewMaze(mazeSize, forceBackTrack, wallChance) {
+		console.log(mazeSize);
 		var playerCoordinates = [];
 		mazeSize.forEach(size => {
 			playerCoordinates.push(0);
 		});
-		var maze = createPlayableMaze(mazeSize, 0.5, false);
+		var maze = createPlayableMaze(mazeSize, wallChance, forceBackTrack);
 		if (maze != null) {
 			var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
 			this.setState({

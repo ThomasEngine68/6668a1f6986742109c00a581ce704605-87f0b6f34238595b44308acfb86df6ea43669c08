@@ -16,9 +16,9 @@ var PageContainer = function (_React$Component) {
 
 		var _this = _possibleConstructorReturn(this, (PageContainer.__proto__ || Object.getPrototypeOf(PageContainer)).call(this, props));
 
-		var mazeSize = [3, 3, 3, 3];
-		var maze = createPlayableMaze(mazeSize, 0.5, true);
-		var playerCoordinates = [0, 0, 0, 0];
+		var mazeSize = [5];
+		var maze = createPlayableMaze(mazeSize, 0.0, false);
+		var playerCoordinates = [0];
 		var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
 		_this.state = {
 			mazeSize: mazeSize,
@@ -37,12 +37,13 @@ var PageContainer = function (_React$Component) {
 
 	_createClass(PageContainer, [{
 		key: 'createNewMaze',
-		value: function createNewMaze(mazeSize) {
+		value: function createNewMaze(mazeSize, forceBackTrack, wallChance) {
+			console.log(mazeSize);
 			var playerCoordinates = [];
 			mazeSize.forEach(function (size) {
 				playerCoordinates.push(0);
 			});
-			var maze = createPlayableMaze(mazeSize, 0.5, false);
+			var maze = createPlayableMaze(mazeSize, wallChance, forceBackTrack);
 			if (maze != null) {
 				var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
 				this.setState({

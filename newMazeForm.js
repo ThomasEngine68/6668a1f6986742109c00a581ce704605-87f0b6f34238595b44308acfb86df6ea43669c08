@@ -20,20 +20,44 @@ var NewMazeForm = function (_React$Component) {
 
 		_this.state = {
 			dimensionCount: 4,
-			mazeSize: [3, 3, 3, 3]
+			mazeSize: [3, 3, 3, 3],
+			forceBackTrack: true,
+			wallChance: 0.6
 		};
 
 		_this.handleDimensionCountChange = _this.handleDimensionCountChange.bind(_this);
 		_this.handleDimensionSizeChange = _this.handleDimensionSizeChange.bind(_this);
+		_this.handleBackTrackChange = _this.handleBackTrackChange.bind(_this);
 		_this.handleSubmit = _this.handleSubmit.bind(_this);
+		_this.handleWallChanceChange = _this.handleWallChanceChange.bind(_this);
+		_this.generateLevel1 = _this.generateLevel1.bind(_this);
+		_this.generateLevel2 = _this.generateLevel2.bind(_this);
+		_this.generateLevel3 = _this.generateLevel3.bind(_this);
+		_this.generateLevel4 = _this.generateLevel4.bind(_this);
+		_this.generateLevel5 = _this.generateLevel5.bind(_this);
 		return _this;
 	}
 
 	_createClass(NewMazeForm, [{
 		key: "handleSubmit",
 		value: function handleSubmit(event) {
-			event.preventDefault();
-			this.props.submitMazeSize(this.state.mazeSize);
+			if (event) event.preventDefault();
+			this.props.submitMazeSize(this.state.mazeSize, this.state.forceBackTrack, this.state.wallChance);
+		}
+	}, {
+		key: "handleBackTrackChange",
+		value: function handleBackTrackChange(event) {
+			this.setState({
+				forceBackTrack: event.target.value == "true"
+			});
+		}
+	}, {
+		key: "handleWallChanceChange",
+		value: function handleWallChanceChange(event) {
+			var wallChance = parseFloat(event.target.value);
+			this.setState({
+				wallChance: wallChance
+			});
 		}
 	}, {
 		key: "handleDimensionSizeChange",
@@ -45,7 +69,6 @@ var NewMazeForm = function (_React$Component) {
 			var mazeSize = this.state.mazeSize;
 			mazeSize[dimension] = dimensionValue;
 			this.setState({
-				dimensionCount: this.state.dimensionCount,
 				mazeSize: mazeSize
 			});
 		}
@@ -70,67 +93,195 @@ var NewMazeForm = function (_React$Component) {
 			}
 		}
 	}, {
+		key: "generateLevel1",
+		value: function generateLevel1() {
+			var _this2 = this;
+
+			this.setState({
+				dimensionCount: 1,
+				mazeSize: [5],
+				forceBackTrack: false,
+				wallChance: 0.0
+			}, function () {
+				_this2.handleSubmit();
+			});
+		}
+	}, {
+		key: "generateLevel2",
+		value: function generateLevel2() {
+			var _this3 = this;
+
+			this.setState({
+				dimensionCount: 2,
+				mazeSize: [6, 6],
+				forceBackTrack: true,
+				wallChance: 0.5
+			}, function () {
+				_this3.handleSubmit();
+			});
+		}
+	}, {
+		key: "generateLevel3",
+		value: function generateLevel3() {
+			var _this4 = this;
+
+			this.setState({
+				dimensionCount: 3,
+				mazeSize: [5, 5, 5],
+				forceBackTrack: true,
+				wallChance: 0.6
+			}, function () {
+				_this4.handleSubmit();
+			});
+		}
+	}, {
+		key: "generateLevel4",
+		value: function generateLevel4() {
+			var _this5 = this;
+
+			this.setState({
+				dimensionCount: 4,
+				mazeSize: [4, 4, 4, 4],
+				forceBackTrack: true,
+				wallChance: 0.6
+			}, function () {
+				_this5.handleSubmit();
+			});
+		}
+	}, {
+		key: "generateLevel5",
+		value: function generateLevel5() {
+			var _this6 = this;
+
+			this.setState({
+				dimensionCount: 5,
+				mazeSize: [4, 4, 4, 4, 4],
+				forceBackTrack: true,
+				wallChance: 0.7
+			}, function () {
+				_this6.handleSubmit();
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
-			var _this2 = this;
+			var _this7 = this;
 
 			var totalAreas = 1;
 			this.state.mazeSize.forEach(function (size) {
 				totalAreas = totalAreas * size;
 			});
 			return React.createElement(
-				"form",
-				{ onSubmit: this.handleSubmit, style: { border: "solid black 1px" } },
+				"div",
+				{ style: { border: "solid black 1px" } },
 				React.createElement(
 					"div",
-					null,
+					{ style: { display: "flex" } },
 					React.createElement(
-						"p",
-						null,
-						"Force back track"
+						"button",
+						{ onClick: this.generateLevel1 },
+						"Level 1"
 					),
-					React.createElement("input", { type: "radio", name: "forceBackTrack", value: "true" }),
-					React.createElement("input", { type: "radio", name: "forceBackTrack", value: "false" })
+					React.createElement(
+						"button",
+						{ onClick: this.generateLevel2 },
+						"Level 2"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.generateLevel3 },
+						"Level 3"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.generateLevel4 },
+						"Level 4"
+					),
+					React.createElement(
+						"button",
+						{ onClick: this.generateLevel5 },
+						"Level 5"
+					)
 				),
 				React.createElement(
-					"div",
-					null,
+					"form",
+					{ onSubmit: this.handleSubmit },
 					React.createElement(
-						"p",
+						"h3",
 						null,
-						"Dimension count (1 - 6)"
+						"Custom maze"
 					),
-					React.createElement("input", { type: "number", min: "1", max: "6", name: "dimensionCount", value: this.state.dimensionCount, onChange: this.handleDimensionCountChange })
-				),
-				React.createElement(
-					"div",
-					null,
 					React.createElement(
-						"p",
+						"div",
 						null,
-						"Size per dimension"
-					),
-					[].concat(_toConsumableArray(Array(this.state.dimensionCount))).map(function (x, dimension) {
-						return React.createElement(
+						React.createElement(
 							"div",
-							{ key: dimension },
-							React.createElement(
-								"label",
-								null,
-								"Dimension ",
-								dimension,
-								React.createElement("input", { type: "number", min: "2", max: "10", value: _this2.state.mazeSize[dimension], name: "dimensionSize" + dimension, onChange: _this2.handleDimensionSizeChange })
-							)
-						);
-					})
-				),
-				React.createElement(
-					"p",
-					null,
-					"Total areas: ",
-					totalAreas
-				),
-				React.createElement("input", { type: "submit", value: "Create new maze!" })
+							null,
+							"Force back track"
+						),
+						React.createElement(
+							"label",
+							null,
+							"On",
+							React.createElement("input", { type: "radio", name: "forceBackTrack", value: "true", checked: this.state.forceBackTrack, onChange: this.handleBackTrackChange })
+						),
+						React.createElement(
+							"label",
+							null,
+							"Off",
+							React.createElement("input", { type: "radio", name: "forceBackTrack", value: "false", checked: !this.state.forceBackTrack, onChange: this.handleBackTrackChange })
+						)
+					),
+					React.createElement(
+						"div",
+						null,
+						React.createElement(
+							"label",
+							null,
+							"Wall chance",
+							React.createElement("input", { type: "number", step: "0.01", min: "0.00", max: "0.80", name: "wallChance", value: this.state.wallChance, onChange: this.handleWallChanceChange })
+						)
+					),
+					React.createElement(
+						"div",
+						null,
+						React.createElement(
+							"div",
+							null,
+							"Dimension count (1 - 6)"
+						),
+						React.createElement("input", { type: "number", min: "1", max: "6", name: "dimensionCount", value: this.state.dimensionCount, onChange: this.handleDimensionCountChange })
+					),
+					React.createElement(
+						"div",
+						null,
+						React.createElement(
+							"div",
+							null,
+							"Size per dimension"
+						),
+						[].concat(_toConsumableArray(Array(this.state.dimensionCount))).map(function (x, dimension) {
+							return React.createElement(
+								"div",
+								{ key: dimension },
+								React.createElement(
+									"label",
+									null,
+									"Dimension ",
+									dimension,
+									React.createElement("input", { type: "number", min: "2", max: "10", value: _this7.state.mazeSize[dimension], name: "dimensionSize" + dimension, onChange: _this7.handleDimensionSizeChange })
+								)
+							);
+						})
+					),
+					React.createElement(
+						"p",
+						null,
+						"Total areas: ",
+						totalAreas
+					),
+					React.createElement("input", { type: "submit", value: "Create new maze!" })
+				)
 			);
 		}
 	}]);
