@@ -50,15 +50,15 @@ var PageContainer = function (_React$Component) {
 					maze: maze,
 					playerCoordinates: playerCoordinates,
 					movesByDimension: movesByDimension,
-					playableMaze: true
+					playableMaze: true,
+					gameWon: false
 				});
-				this.forceUpdate();
 			} else {
 				this.setState({
-					playableMaze: false
+					playableMaze: false,
+					gameWon: false
 				});
 			}
-			this.forceUpdate();
 		}
 	}, {
 		key: 'handleMove',
@@ -98,11 +98,6 @@ var PageContainer = function (_React$Component) {
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(
-					'p',
-					null,
-					this.state.mazeSize
-				),
 				React.createElement(MazeGameContainer, {
 					handleClickUp: this.handleClickUp,
 					handleClickDown: this.handleClickDown,

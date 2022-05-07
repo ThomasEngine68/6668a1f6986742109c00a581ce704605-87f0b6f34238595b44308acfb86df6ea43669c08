@@ -34,16 +34,15 @@ class PageContainer extends React.Component {
 				maze: maze,
 				playerCoordinates: playerCoordinates,
 				movesByDimension: movesByDimension,
-				playableMaze: true
+				playableMaze: true,
+				gameWon: false
 			});
-			this.forceUpdate()
-		}
-		else{
+		} else {
 			this.setState({
-				playableMaze: false
+				playableMaze: false,
+				gameWon: false
 			})
 		}
-		this.forceUpdate()
 	}
 
 	handleMove(dimension, up) {
@@ -79,7 +78,6 @@ class PageContainer extends React.Component {
 	render() {
 		return (
 			<div>
-				<p>{this.state.mazeSize}</p>
 				<MazeGameContainer
 					handleClickUp={this.handleClickUp}
 					handleClickDown={this.handleClickDown}

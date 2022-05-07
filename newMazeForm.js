@@ -80,7 +80,7 @@ var NewMazeForm = function (_React$Component) {
 			});
 			return React.createElement(
 				"form",
-				{ onSubmit: this.handleSubmit },
+				{ onSubmit: this.handleSubmit, style: { border: "solid black 1px" } },
 				React.createElement(
 					"div",
 					null,

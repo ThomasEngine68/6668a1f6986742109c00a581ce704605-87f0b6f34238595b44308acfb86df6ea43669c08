@@ -57,7 +57,7 @@ class NewMazeForm extends React.Component {
 			totalAreas = totalAreas * size;
 		})
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form onSubmit={this.handleSubmit} style={{border: "solid black 1px"}}>
 				<div>
 					<p>Force back track</p>
 					<input type="radio" name="forceBackTrack" value="true" />
