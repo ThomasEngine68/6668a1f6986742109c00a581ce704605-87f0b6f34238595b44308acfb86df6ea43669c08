@@ -35,6 +35,7 @@ var NewMazeForm = function (_React$Component) {
 		_this.generateLevel3 = _this.generateLevel3.bind(_this);
 		_this.generateLevel4 = _this.generateLevel4.bind(_this);
 		_this.generateLevel5 = _this.generateLevel5.bind(_this);
+		_this.generateLevel6 = _this.generateLevel6.bind(_this);
 		return _this;
 	}
 
@@ -163,9 +164,23 @@ var NewMazeForm = function (_React$Component) {
 			});
 		}
 	}, {
+		key: "generateLevel6",
+		value: function generateLevel6() {
+			var _this7 = this;
+
+			this.setState({
+				dimensionCount: 6,
+				mazeSize: [4, 4, 4, 4, 3, 3],
+				forceBackTrack: true,
+				wallChance: 0.75
+			}, function () {
+				_this7.handleSubmit();
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
-			var _this7 = this;
+			var _this8 = this;
 
 			var totalAreas = 1;
 			this.state.mazeSize.forEach(function (size) {
@@ -176,7 +191,7 @@ var NewMazeForm = function (_React$Component) {
 				{ className: "whitePanel" },
 				React.createElement(
 					"div",
-					{ style: { display: "flex" } },
+					{ style: { display: "flex", flexWrap: "wrap" } },
 					React.createElement(
 						"button",
 						{ className: "button", onClick: this.generateLevel1 },
@@ -201,6 +216,11 @@ var NewMazeForm = function (_React$Component) {
 						"button",
 						{ className: "button", onClick: this.generateLevel5 },
 						"Level 5"
+					),
+					React.createElement(
+						"button",
+						{ className: "button", onClick: this.generateLevel6 },
+						"Level 6"
 					)
 				),
 				React.createElement(
@@ -269,7 +289,7 @@ var NewMazeForm = function (_React$Component) {
 									null,
 									"Dimension ",
 									dimension,
-									React.createElement("input", { type: "number", min: "2", max: "10", value: _this7.state.mazeSize[dimension], name: "dimensionSize" + dimension, onChange: _this7.handleDimensionSizeChange })
+									React.createElement("input", { type: "number", min: "2", max: "10", value: _this8.state.mazeSize[dimension], name: "dimensionSize" + dimension, onChange: _this8.handleDimensionSizeChange })
 								)
 							);
 						})

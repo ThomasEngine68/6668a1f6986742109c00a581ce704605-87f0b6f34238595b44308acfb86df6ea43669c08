@@ -20,6 +20,7 @@ class NewMazeForm extends React.Component {
 		this.generateLevel3 = this.generateLevel3.bind(this);
 		this.generateLevel4 = this.generateLevel4.bind(this);
 		this.generateLevel5 = this.generateLevel5.bind(this);
+		this.generateLevel6 = this.generateLevel6.bind(this);
 	}
 
 	handleSubmit(event) {
@@ -122,6 +123,16 @@ class NewMazeForm extends React.Component {
 			this.handleSubmit()
 		});
 	}
+	generateLevel6(){
+		this.setState({
+			dimensionCount: 6,
+			mazeSize: [4, 4, 4, 4, 3, 3],
+			forceBackTrack: true,
+			wallChance: 0.75
+		},() => {
+			this.handleSubmit()
+		});
+	}
 
 	render() {
 		var totalAreas = 1;
@@ -130,12 +141,13 @@ class NewMazeForm extends React.Component {
 		})
 		return (
 			<div className="whitePanel">
-				<div style={{display: "flex"}}>
+				<div style={{display: "flex", flexWrap: "wrap"}}>
 					<button className="button" onClick={this.generateLevel1}>Level 1</button>
 					<button className="button" onClick={this.generateLevel2}>Level 2</button>
 					<button className="button" onClick={this.generateLevel3}>Level 3</button>
 					<button className="button" onClick={this.generateLevel4}>Level 4</button>
 					<button className="button" onClick={this.generateLevel5}>Level 5</button>
+					<button className="button" onClick={this.generateLevel6}>Level 6</button>
 				</div>
 				<form onSubmit={this.handleSubmit}>
 					<h3>Custom maze</h3>
