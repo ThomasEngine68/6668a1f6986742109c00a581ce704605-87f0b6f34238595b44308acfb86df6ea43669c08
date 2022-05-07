@@ -1,0 +1,19 @@
+td{
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+td.openMazeTile {
+	background-color: greenyellow;
+}
+td.walledMazeTile {
+	background-color: green;
+}
+td.hasPlayer {
+	background-image: url('../images/rabbit.png');
+}
+td.hasGoal {
+	background-image: url('../images/carrot.png');
+}
+td.hasPlayer.hasGoal {
+	background-image: url('../images/rabbit_carrot.png');
+}

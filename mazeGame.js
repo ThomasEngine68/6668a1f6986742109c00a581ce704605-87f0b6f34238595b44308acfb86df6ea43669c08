@@ -38,18 +38,12 @@ function Control(props) {
 					return React.createElement(
 						"tr",
 						{ key: index },
-						React.createElement(
-							"td",
-							{ className: "openSquare", style: {
-									border: "1px solid black",
-									padding: "0px",
-									height: "30px",
-									width: "30px"
-								} },
-							area.player ? "P" : null,
-							area.goal ? "G" : null,
-							area.open ? null : "----"
-						)
+						React.createElement("td", { className: "\n\t\t\t\t\t\t\t\t" + (area.open ? "openMazeTile" : "walledMazeTile") + "\n\t\t\t\t\t\t\t\t" + (area.player ? "hasPlayer" : "") + "\n\t\t\t\t\t\t\t\t" + (area.goal ? "hasGoal" : "") + "\n\t\t\t\t\t\t\t\t", style: {
+								border: "1px solid black",
+								padding: "0px",
+								height: "30px",
+								width: "30px"
+							} })
 					);
 				})
 			)
@@ -103,7 +97,7 @@ var MazeGameContainer = function (_React$Component) {
 				React.createElement(
 					"div",
 					null,
-					this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳" : null
+					this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳🥕🥕🥕" : null
 				)
 			);
 		}

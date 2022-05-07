@@ -14,15 +14,16 @@ function Control(props) {
 				<tbody>
 					{[...props.areasOfDimension].reverse().map((area, index) =>
 						<tr key={index}>
-							<td className="openSquare" style={{
+							<td className={`
+								${area.open ? "openMazeTile" : "walledMazeTile"}
+								${area.player ? "hasPlayer" : ""}
+								${area.goal ? "hasGoal" : ""}
+								`} style={{
 								border: "1px solid black",
 								padding: "0px",
 								height: "30px",
 								width: "30px"
 							}}>
-								{area.player ? "P" : null}
-								{area.goal ? "G" : null}
-								{area.open ? null : "----"}
 							</td>
 						</tr>
 					)}
@@ -53,7 +54,7 @@ class MazeGameContainer extends React.Component {
 					)}
 				</div>
 				<div>
-					{this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳" : null}
+					{this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳🥕🥕🥕" : null}
 				</div>
 			</div>
 		)
