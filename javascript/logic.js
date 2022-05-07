@@ -44,6 +44,9 @@ function addStartEnd(maze) {
 }
 
 function createPlayableMaze(dimensions, chance, requiereBackTrack) {
+	console.log(dimensions)
+	console.log(chance)
+	console.log(requiereBackTrack)
 	var maze;
 	var tries = 0;
 	var areasTested = 0;
@@ -200,7 +203,7 @@ function getAreaOfCoordinates(maze, coordinates) {
 
 function getLegalMovesByDimension(playerCoordinates, maze) {
 	var legalMoves = getLegalMoves(playerCoordinates, maze, []);
-	var movesByDimension = [...Array(mazeSize.length)].map((x, i) => {
+	var movesByDimension = [...Array(playerCoordinates.length)].map((x, i) => {
 		var legalMovesOfDimension = legalMoves.filter(legalMove => legalMove.dimension == i);
 		var validUp = legalMovesOfDimension.some(legalMove => legalMove.move == "UP");
 		var validDown = legalMovesOfDimension.some(legalMove => legalMove.move == "DOWN");

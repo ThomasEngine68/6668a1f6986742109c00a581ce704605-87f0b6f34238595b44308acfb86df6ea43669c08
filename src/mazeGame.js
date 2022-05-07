@@ -38,18 +38,22 @@ function Control(props) {
 class MazeGameContainer extends React.Component {
 	constructor(props) {
 		super(props);
+		var mazeSize = [3, 3, 3, 3];
+		var maze = createPlayableMaze(mazeSize, 0.5, true);
+		var playerCoordinates = [0, 0, 0, 0]
+		var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
 		this.state = {
-			mazeSize: [3, 3, 3, 3],
-			maze: createPlayableMaze(this.mazeSize, 0.5, true),
-			playerCoordinates: [0, 0, 0, 0],
-			movesByDimension: getLegalMovesByDimension(this.state.playerCoordinates, this.state.maze)
+			mazeSize: mazeSize,
+			maze: maze,
+			playerCoordinates: playerCoordinates,
+			movesByDimension: movesByDimension
 		};
 	}
 
 	handleMove(dimension, up) {
 		var mazeSize = this.state.mazeSize.slice();
 		var maze = this.state.maze.slice();
-		var playerCoordinates = this.playerCoordinates.slice();
+		var playerCoordinates = this.state.playerCoordinates.slice();
 		var currentArea = getAreaOfCoordinates(maze, playerCoordinates);
 		currentArea.player = false;
 		if (up) playerCoordinates[dimension]++;
@@ -67,22 +71,22 @@ class MazeGameContainer extends React.Component {
 	}
 
 	handleClickUp(dimension) {
-		handleMove(dimension, true)
+		this.handleMove(dimension, true)
 	}
 
 	handleClickDown(dimension) {
-		handleMove(dimension, false)
+		this.handleMove(dimension, false)
 	}
 
 	render() {
 		return (
 			<div>
 				<div style={{display: "flex"}}>
-					{[...Array(this.mazeSize.length)].map((x, dimension) =>
+					{[...Array(this.state.mazeSize.length)].map((x, dimension) =>
 						<div key={dimension}>
 							<Control
 								dimensionIndex={dimension}
-								areasOfDimension={getAreasOfDimension(this.maze, this.playerCoordinates, dimension)}
+								areasOfDimension={getAreasOfDimension(this.state.maze, this.state.playerCoordinates, dimension)}
 								moves={this.state.movesByDimension[dimension]}
 								onClickUp={() => this.handleClickUp(dimension)}
 								onClickDown={() => this.handleClickDown(dimension)}
