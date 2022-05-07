@@ -44,9 +44,6 @@ function addStartEnd(maze) {
 }
 
 function createPlayableMaze(dimensions, chance, requiereBackTrack) {
-	console.log(dimensions)
-	console.log(chance)
-	console.log(requiereBackTrack)
 	var maze;
 	var tries = 0;
 	var areasTested = 0;

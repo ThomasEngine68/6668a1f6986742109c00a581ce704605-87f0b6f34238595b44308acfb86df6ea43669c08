@@ -65,55 +65,13 @@ function Control(props) {
 var MazeGameContainer = function (_React$Component) {
 	_inherits(MazeGameContainer, _React$Component);
 
-	function MazeGameContainer(props) {
+	function MazeGameContainer() {
 		_classCallCheck(this, MazeGameContainer);
 
-		var _this = _possibleConstructorReturn(this, (MazeGameContainer.__proto__ || Object.getPrototypeOf(MazeGameContainer)).call(this, props));
-
-		var mazeSize = [3, 3, 3, 3];
-		var maze = createPlayableMaze(mazeSize, 0.5, true);
-		var playerCoordinates = [0, 0, 0, 0];
-		var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
-		_this.state = {
-			mazeSize: mazeSize,
-			maze: maze,
-			playerCoordinates: playerCoordinates,
-			movesByDimension: movesByDimension
-		};
-		return _this;
+		return _possibleConstructorReturn(this, (MazeGameContainer.__proto__ || Object.getPrototypeOf(MazeGameContainer)).apply(this, arguments));
 	}
 
 	_createClass(MazeGameContainer, [{
-		key: "handleMove",
-		value: function handleMove(dimension, up) {
-			var mazeSize = this.state.mazeSize.slice();
-			var maze = this.state.maze.slice();
-			var playerCoordinates = this.state.playerCoordinates.slice();
-			var currentArea = getAreaOfCoordinates(maze, playerCoordinates);
-			currentArea.player = false;
-			if (up) playerCoordinates[dimension]++;else playerCoordinates[dimension]--;
-			var newArea = getAreaOfCoordinates(maze, playerCoordinates);
-			newArea.player = true;
-
-			var movesByDimension = getLegalMovesByDimension(playerCoordinates, maze);
-			this.setState({
-				mazeSize: mazeSize,
-				maze: maze,
-				playerCoordinates: playerCoordinates,
-				movesByDimension: movesByDimension
-			});
-		}
-	}, {
-		key: "handleClickUp",
-		value: function handleClickUp(dimension) {
-			this.handleMove(dimension, true);
-		}
-	}, {
-		key: "handleClickDown",
-		value: function handleClickDown(dimension) {
-			this.handleMove(dimension, false);
-		}
-	}, {
 		key: "render",
 		value: function render() {
 			var _this2 = this;
@@ -124,23 +82,28 @@ var MazeGameContainer = function (_React$Component) {
 				React.createElement(
 					"div",
 					{ style: { display: "flex" } },
-					[].concat(_toConsumableArray(Array(this.state.mazeSize.length))).map(function (x, dimension) {
+					[].concat(_toConsumableArray(Array(this.props.mazeSize.length))).map(function (x, dimension) {
 						return React.createElement(
 							"div",
 							{ key: dimension },
 							React.createElement(Control, {
 								dimensionIndex: dimension,
-								areasOfDimension: getAreasOfDimension(_this2.state.maze, _this2.state.playerCoordinates, dimension),
-								moves: _this2.state.movesByDimension[dimension],
+								areasOfDimension: getAreasOfDimension(_this2.props.maze, _this2.props.playerCoordinates, dimension),
+								moves: _this2.props.movesByDimension[dimension],
 								onClickUp: function onClickUp() {
-									return _this2.handleClickUp(dimension);
+									return _this2.props.handleClickUp(dimension);
 								},
 								onClickDown: function onClickDown() {
-									return _this2.handleClickDown(dimension);
+									return _this2.props.handleClickDown(dimension);
 								}
 							})
 						);
 					})
+				),
+				React.createElement(
+					"div",
+					null,
+					this.props.gameWon ? "YOU WON THE GAME! 🥳🎉💯🎉🥳" : null
 				)
 			);
 		}
@@ -148,6 +111,3 @@ var MazeGameContainer = function (_React$Component) {
 
 	return MazeGameContainer;
 }(React.Component);
-
-var domContainer = document.querySelector('#mazeGameContainer');
-ReactDOM.render(React.createElement(MazeGameContainer, null), domContainer);
