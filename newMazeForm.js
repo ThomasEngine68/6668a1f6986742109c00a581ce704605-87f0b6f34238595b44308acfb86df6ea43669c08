@@ -30,12 +30,14 @@ var NewMazeForm = function (_React$Component) {
 		_this.handleBackTrackChange = _this.handleBackTrackChange.bind(_this);
 		_this.handleSubmit = _this.handleSubmit.bind(_this);
 		_this.handleWallChanceChange = _this.handleWallChanceChange.bind(_this);
+		_this.generateLevel = _this.generateLevel.bind(_this);
 		_this.generateLevel1 = _this.generateLevel1.bind(_this);
 		_this.generateLevel2 = _this.generateLevel2.bind(_this);
 		_this.generateLevel3 = _this.generateLevel3.bind(_this);
 		_this.generateLevel4 = _this.generateLevel4.bind(_this);
 		_this.generateLevel5 = _this.generateLevel5.bind(_this);
 		_this.generateLevel6 = _this.generateLevel6.bind(_this);
+		_this.generateLevel7 = _this.generateLevel7.bind(_this);
 		return _this;
 	}
 
@@ -96,91 +98,56 @@ var NewMazeForm = function (_React$Component) {
 	}, {
 		key: "generateLevel1",
 		value: function generateLevel1() {
+			this.generateLevel(1, [5], false, 0.0);
+		}
+	}, {
+		key: "generateLevel2",
+		value: function generateLevel2() {
+			this.generateLevel(2, [6, 6], true, 0.55);
+		}
+	}, {
+		key: "generateLevel3",
+		value: function generateLevel3() {
+			this.generateLevel(3, [5, 5, 5], true, 0.6);
+		}
+	}, {
+		key: "generateLevel4",
+		value: function generateLevel4() {
+			this.generateLevel(4, [4, 4, 4, 4], true, 0.6);
+		}
+	}, {
+		key: "generateLevel5",
+		value: function generateLevel5() {
+			this.generateLevel(5, [4, 4, 4, 4, 4], true, 0.7);
+		}
+	}, {
+		key: "generateLevel6",
+		value: function generateLevel6() {
+			this.generateLevel(6, [4, 4, 4, 4, 3, 3], true, 0.75);
+		}
+	}, {
+		key: "generateLevel7",
+		value: function generateLevel7() {
+			this.generateLevel(6, [5, 5, 4, 4, 4, 4], true, 0.77);
+		}
+	}, {
+		key: "generateLevel",
+		value: function generateLevel(dimensionCount, mazeSize, forceBackTrack, wallChance) {
 			var _this2 = this;
 
 			this.setState({
-				dimensionCount: 1,
-				mazeSize: [5],
-				forceBackTrack: false,
-				wallChance: 0.0
+				dimensionCount: dimensionCount,
+				mazeSize: mazeSize,
+				forceBackTrack: forceBackTrack,
+				wallChance: wallChance
 			}, function () {
 				_this2.handleSubmit();
 			});
 		}
 	}, {
-		key: "generateLevel2",
-		value: function generateLevel2() {
-			var _this3 = this;
-
-			this.setState({
-				dimensionCount: 2,
-				mazeSize: [6, 6],
-				forceBackTrack: true,
-				wallChance: 0.55
-			}, function () {
-				_this3.handleSubmit();
-			});
-		}
-	}, {
-		key: "generateLevel3",
-		value: function generateLevel3() {
-			var _this4 = this;
-
-			this.setState({
-				dimensionCount: 3,
-				mazeSize: [5, 5, 5],
-				forceBackTrack: true,
-				wallChance: 0.6
-			}, function () {
-				_this4.handleSubmit();
-			});
-		}
-	}, {
-		key: "generateLevel4",
-		value: function generateLevel4() {
-			var _this5 = this;
-
-			this.setState({
-				dimensionCount: 4,
-				mazeSize: [4, 4, 4, 4],
-				forceBackTrack: true,
-				wallChance: 0.6
-			}, function () {
-				_this5.handleSubmit();
-			});
-		}
-	}, {
-		key: "generateLevel5",
-		value: function generateLevel5() {
-			var _this6 = this;
-
-			this.setState({
-				dimensionCount: 5,
-				mazeSize: [4, 4, 4, 4, 4],
-				forceBackTrack: true,
-				wallChance: 0.7
-			}, function () {
-				_this6.handleSubmit();
-			});
-		}
-	}, {
-		key: "generateLevel6",
-		value: function generateLevel6() {
-			var _this7 = this;
-
-			this.setState({
-				dimensionCount: 6,
-				mazeSize: [4, 4, 4, 4, 3, 3],
-				forceBackTrack: true,
-				wallChance: 0.75
-			}, function () {
-				_this7.handleSubmit();
-			});
-		}
-	}, {
 		key: "render",
 		value: function render() {
-			var _this8 = this;
+			var _this3 = this;
 
 			var totalAreas = 1;
 			this.state.mazeSize.forEach(function (size) {
@@ -221,6 +188,11 @@ var NewMazeForm = function (_React$Component) {
 						"button",
 						{ className: "button", onClick: this.generateLevel6 },
 						"Level 6"
+					),
+					React.createElement(
+						"button",
+						{ className: "button", onClick: this.generateLevel7 },
+						"Level 7"
 					)
 				),
 				React.createElement(
@@ -289,7 +261,7 @@ var NewMazeForm = function (_React$Component) {
 									null,
 									"Dimension ",
 									dimension,
-									React.createElement("input", { type: "number", min: "2", max: "10", value: _this8.state.mazeSize[dimension], name: "dimensionSize" + dimension, onChange: _this8.handleDimensionSizeChange })
+									React.createElement("input", { type: "number", min: "2", max: "10", value: _this3.state.mazeSize[dimension], name: "dimensionSize" + dimension, onChange: _this3.handleDimensionSizeChange })
 								)
 							);
 						})

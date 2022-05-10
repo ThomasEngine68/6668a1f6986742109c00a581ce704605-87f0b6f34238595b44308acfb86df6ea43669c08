@@ -47,7 +47,7 @@ function createPlayableMaze(dimensions, chance, requiereBackTrack) {
 	var maze;
 	var tries = 0;
 	var areasTested = 0;
-	var maxAreasTested = 100000;
+	var maxAreasTested = 150000;
 	var maxTries = 5000;
 	var minDistance = 0
 	if (requiereBackTrack) minDistance = calculateMinDistance(dimensions);
@@ -87,7 +87,7 @@ function isPassable(dimensions, maze) {
 		firstCoordinates.push(0);
 	});
 	var newCoordinateArray = [];
-	var maxAreasTested = 10000;
+	var maxAreasTested = 25000;
 	newCoordinateArray.push({
 		chain: [],
 		coordinates: firstCoordinates
