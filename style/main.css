@@ -29,12 +29,17 @@ h1 {
 	display: inline-block;
 	font-size: 14px;
 	margin: 4px 2px;
-	cursor: pointer;
 	transition: 0.3s;
+	cursor: pointer;
 }
 
 .button:hover {
 	background-color: green;
+}
+
+.button:disabled, button:hover:disabled {
+	background-color: seagreen;
+	cursor: not-allowed;
 }
 
 td{

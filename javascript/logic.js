@@ -47,7 +47,7 @@ function createPlayableMaze(dimensions, chance, requiereBackTrack) {
 	var maze;
 	var tries = 0;
 	var areasTested = 0;
-	var maxAreasTested = 150000;
+	var maxAreasTested = 80000;
 	var maxTries = 5000;
 	var minDistance = 0
 	if (requiereBackTrack) minDistance = calculateMinDistance(dimensions);

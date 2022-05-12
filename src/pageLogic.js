@@ -22,7 +22,6 @@ class PageContainer extends React.Component {
 	}
 
 	createNewMaze(mazeSize, forceBackTrack, wallChance) {
-		console.log(mazeSize);
 		var playerCoordinates = [];
 		mazeSize.forEach(size => {
 			playerCoordinates.push(0);

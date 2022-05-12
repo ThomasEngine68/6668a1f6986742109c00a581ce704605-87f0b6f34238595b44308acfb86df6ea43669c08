@@ -7,7 +7,8 @@ class NewMazeForm extends React.Component {
 			dimensionCount: 1,
 			mazeSize: [5],
 			forceBackTrack: false,
-			wallChance: 0.0
+			wallChance: 0.0,
+			created: true,
 		}
 
 		this.handleDimensionCountChange = this.handleDimensionCountChange.bind(this);
@@ -23,20 +24,22 @@ class NewMazeForm extends React.Component {
 		this.generateLevel5 = this.generateLevel5.bind(this);
 		this.generateLevel6 = this.generateLevel6.bind(this);
 		this.generateLevel7 = this.generateLevel7.bind(this);
+
+		console.log(this.state.created)
 	}
 
 	handleSubmit(event) {
-		if(event) event.preventDefault();
+		if (event) event.preventDefault();
 		this.props.submitMazeSize(this.state.mazeSize, this.state.forceBackTrack, this.state.wallChance);
 	}
 
-	handleBackTrackChange(event){
+	handleBackTrackChange(event) {
 		this.setState({
 			forceBackTrack: event.target.value == "true"
 		})
 	}
 
-	handleWallChanceChange(event){
+	handleWallChanceChange(event) {
 		var wallChance = parseFloat(event.target.value);
 		this.setState({
 			wallChance: wallChance
@@ -75,7 +78,7 @@ class NewMazeForm extends React.Component {
 		}
 	}
 
-	generateLevel1(){
+	generateLevel1() {
 		this.generateLevel(
 			1,
 			[5],
@@ -83,7 +86,7 @@ class NewMazeForm extends React.Component {
 			0.0
 		);
 	}
-	generateLevel2(){
+	generateLevel2() {
 		this.generateLevel(
 			2,
 			[6, 6],
@@ -91,7 +94,7 @@ class NewMazeForm extends React.Component {
 			0.55
 		);
 	}
-	generateLevel3(){
+	generateLevel3() {
 		this.generateLevel(
 			3,
 			[5, 5, 5],
@@ -99,7 +102,7 @@ class NewMazeForm extends React.Component {
 			0.6
 		);
 	}
-	generateLevel4(){
+	generateLevel4() {
 		this.generateLevel(
 			4,
 			[4, 4, 4, 4],
@@ -107,7 +110,7 @@ class NewMazeForm extends React.Component {
 			0.6
 		);
 	}
-	generateLevel5(){
+	generateLevel5() {
 		this.generateLevel(
 			5,
 			[4, 4, 4, 4, 4],
@@ -115,7 +118,7 @@ class NewMazeForm extends React.Component {
 			0.7
 		);
 	}
-	generateLevel6(){
+	generateLevel6() {
 		this.generateLevel(
 			6,
 			[4, 4, 4, 4, 3, 3],
@@ -123,7 +126,7 @@ class NewMazeForm extends React.Component {
 			0.75
 		);
 	}
-	generateLevel7(){
+	generateLevel7() {
 		this.generateLevel(
 			6,
 			[5, 5, 4, 4, 4, 4],
@@ -138,8 +141,12 @@ class NewMazeForm extends React.Component {
 			mazeSize: mazeSize,
 			forceBackTrack: forceBackTrack,
 			wallChance: wallChance,
-		},() => {
-			this.handleSubmit()
+			created: false,
+		}, () => {
+			setTimeout(() => {
+				this.handleSubmit()
+				this.setState({created: true})
+			}, 100)
 		});
 	}
 
@@ -160,16 +167,24 @@ class NewMazeForm extends React.Component {
 					<button className="button" onClick={this.generateLevel7}>Level 7</button>
 				</div>
 				<form onSubmit={this.handleSubmit}>
-					<h3>Custom maze</h3>
+					<div style={{display: "flex"}}>
+						<h3>Custom maze</h3>
+						<h3 style={{
+							visibility: this.state.created ? 'hidden' : 'initial',
+							marginLeft: "10px"
+							}}>
+							Loading...
+							</h3>
+					</div>
 					<div>
 						<div>Force back track</div>
 						<label>
 							On
-							<input type="radio" name="forceBackTrack" value="true" checked={this.state.forceBackTrack} onChange={this.handleBackTrackChange}/>
+							<input type="radio" name="forceBackTrack" value="true" checked={this.state.forceBackTrack} onChange={this.handleBackTrackChange} />
 						</label>
 						<label>
 							Off
-							<input type="radio" name="forceBackTrack" value="false" checked={!this.state.forceBackTrack} onChange={this.handleBackTrackChange}/>
+							<input type="radio" name="forceBackTrack" value="false" checked={!this.state.forceBackTrack} onChange={this.handleBackTrackChange} />
 						</label>
 					</div>
 					<div>

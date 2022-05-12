@@ -38,7 +38,6 @@ var PageContainer = function (_React$Component) {
 	_createClass(PageContainer, [{
 		key: "createNewMaze",
 		value: function createNewMaze(mazeSize, forceBackTrack, wallChance) {
-			console.log(mazeSize);
 			var playerCoordinates = [];
 			mazeSize.forEach(function (size) {
 				playerCoordinates.push(0);

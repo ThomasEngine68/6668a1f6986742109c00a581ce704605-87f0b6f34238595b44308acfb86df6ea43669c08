@@ -22,7 +22,8 @@ var NewMazeForm = function (_React$Component) {
 			dimensionCount: 1,
 			mazeSize: [5],
 			forceBackTrack: false,
-			wallChance: 0.0
+			wallChance: 0.0,
+			created: true
 		};
 
 		_this.handleDimensionCountChange = _this.handleDimensionCountChange.bind(_this);
@@ -38,6 +39,8 @@ var NewMazeForm = function (_React$Component) {
 		_this.generateLevel5 = _this.generateLevel5.bind(_this);
 		_this.generateLevel6 = _this.generateLevel6.bind(_this);
 		_this.generateLevel7 = _this.generateLevel7.bind(_this);
+
+		console.log(_this.state.created);
 		return _this;
 	}
 
@@ -139,9 +142,13 @@ var NewMazeForm = function (_React$Component) {
 				dimensionCount: dimensionCount,
 				mazeSize: mazeSize,
 				forceBackTrack: forceBackTrack,
-				wallChance: wallChance
+				wallChance: wallChance,
+				created: false
 			}, function () {
-				_this2.handleSubmit();
+				setTimeout(function () {
+					_this2.handleSubmit();
+					_this2.setState({ created: true });
+				}, 100);
 			});
 		}
 	}, {
@@ -199,9 +206,21 @@ var NewMazeForm = function (_React$Component) {
 					"form",
 					{ onSubmit: this.handleSubmit },
 					React.createElement(
-						"h3",
-						null,
-						"Custom maze"
+						"div",
+						{ style: { display: "flex" } },
+						React.createElement(
+							"h3",
+							null,
+							"Custom maze"
+						),
+						React.createElement(
+							"h3",
+							{ style: {
+									visibility: this.state.created ? 'hidden' : 'initial',
+									marginLeft: "10px"
+								} },
+							"Loading..."
+						)
 					),
 					React.createElement(
 						"div",
